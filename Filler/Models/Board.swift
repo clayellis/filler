@@ -1,3 +1,5 @@
+import Foundation
+
 // TODO: Each local player should see the board oriented such that they are positioned in the bottom left.
 // The opposing player should always appear in the top right.
 // That means that the board will have to be inverted for one of the players.
@@ -139,12 +141,24 @@ extension Board: CustomDebugStringConvertible {
         """
     }
 
-    static let preview = Board(unsafeWidth: 5, height: 5, tiles: [
-        .red, .yellow, .green, .blue, .purple,
-        .red, .yellow, .green, .blue, .purple,
-        .red, .yellow, .green, .blue, .purple,
-        .red, .yellow, .green, .blue, .purple,
-        .red, .yellow, .green, .blue, .purple
+
+    func printDebugDescription() {
+        print(debugDescription)
+        print(swiftDescription)
+        do {
+            try print(JSONEncoder().encode(self).utf8String)
+        } catch {
+            print("Encode error: \(error)")
+        }
+    }
+
+    static let preview = Board(unsafeWidth: 6, height: 6, tiles: [
+        .red, .orange, .yellow, .green, .blue, .purple,
+        .purple, .red, .orange, .yellow, .green, .blue,
+        .blue, .purple, .red, .orange, .yellow, .green,
+        .green, .blue, .purple, .red, .orange, .yellow,
+        .yellow, .green, .blue, .purple, .red, .orange,
+        .orange, .yellow, .green, .blue, .purple, .red,
     ])
 }
 #endif

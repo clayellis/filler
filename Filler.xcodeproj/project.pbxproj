@@ -163,11 +163,11 @@
 		8F4434042868AFE100AD3ACC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8F32ADD8286746310029BD5B /* Game.swift */,
 				8F44340D2868B0BE00AD3ACC /* Board.swift */,
-				8F44340B2868B08B00AD3ACC /* Direction.swift */,
-				8F4434092868B07800AD3ACC /* Player.swift */,
 				8F4434072868B04300AD3ACC /* Coordinate.swift */,
+				8F44340B2868B08B00AD3ACC /* Direction.swift */,
+				8F32ADD8286746310029BD5B /* Game.swift */,
+				8F4434092868B07800AD3ACC /* Player.swift */,
 				8F4434052868B00100AD3ACC /* Tile.swift */,
 			);
 			path = Models;

@@ -14,6 +14,7 @@ struct ContentView: View {
                 ColorPickerView(board: game.board) { tile in
                     game.playerPicked(tile)
                 }
+                .padding(.vertical)
             }
 
             switch game.state {
@@ -45,6 +46,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(game: Game(board: .preview))
+        ContentView(game: Game(board: .preview, state: .playing(turn: .playerOne)))
     }
 }

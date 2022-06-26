@@ -2,11 +2,11 @@ import Foundation
 
 enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
     case red
+    case orange
     case yellow
     case green
     case blue
     case purple
-    case black
 
     var id: Self { self }
 }
@@ -17,6 +17,8 @@ extension Tile: CustomDebugStringConvertible {
         switch self {
         case .red:
             return "🟥"
+        case .orange:
+            return "🟧"
         case .yellow:
             return "🟨"
         case .green:
@@ -25,8 +27,6 @@ extension Tile: CustomDebugStringConvertible {
             return "🟦"
         case .purple:
             return "🟪"
-        case .black:
-            return "⬛️"
         }
     }
 
@@ -34,6 +34,8 @@ extension Tile: CustomDebugStringConvertible {
         switch self {
         case .red:
             return ".red"
+        case .orange:
+            return ".orange"
         case .yellow:
             return ".yellow"
         case .green:
@@ -42,8 +44,6 @@ extension Tile: CustomDebugStringConvertible {
             return ".blue"
         case .purple:
             return ".purple"
-        case .black:
-            return ".black"
         }
     }
 }

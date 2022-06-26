@@ -7,8 +7,9 @@ class Game: ObservableObject {
     @Published var state: GameState = .notPlaying
     @Published private var scores: [Player: Int] = [:]
 
-    init(board: Board = .init()) {
+    init(board: Board = .init(), state: GameState = .notPlaying) {
         self.board = board
+        self.state = state
     }
 
     var turn: Player? {
