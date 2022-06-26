@@ -2,10 +2,10 @@
 // The opposing player should always appear in the top right.
 // That means that the board will have to be inverted for one of the players.
 
-struct Board {
-    var tiles: [Tile]
+struct Board: Codable {
     let width: Int
     let height: Int
+    var tiles: [Tile]
 
     init(width: Int = 5, height: Int = 5) {
         var tiles = [Tile]()
@@ -138,5 +138,13 @@ extension Board: CustomDebugStringConvertible {
         Board(width: \(width), height: \(height), tiles: [\(tilesSD)])
         """
     }
+
+    static let preview = Board(unsafeWidth: 5, height: 5, tiles: [
+        .red, .yellow, .green, .blue, .purple,
+        .red, .yellow, .green, .blue, .purple,
+        .red, .yellow, .green, .blue, .purple,
+        .red, .yellow, .green, .blue, .purple,
+        .red, .yellow, .green, .blue, .purple
+    ])
 }
 #endif

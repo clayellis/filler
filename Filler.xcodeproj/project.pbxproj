@@ -22,6 +22,9 @@
 		8F44340A2868B07800AD3ACC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434092868B07800AD3ACC /* Player.swift */; };
 		8F44340C2868B08B00AD3ACC /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340B2868B08B00AD3ACC /* Direction.swift */; };
 		8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340D2868B0BE00AD3ACC /* Board.swift */; };
+		8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434102868B24F00AD3ACC /* BoardView.swift */; };
+		8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434122868B27D00AD3ACC /* ColorPickerView.swift */; };
+		8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434142868B2B800AD3ACC /* TurnView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		8F4434092868B07800AD3ACC /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8F44340B2868B08B00AD3ACC /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		8F44340D2868B0BE00AD3ACC /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		8F4434102868B24F00AD3ACC /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		8F4434122868B27D00AD3ACC /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		8F4434142868B2B800AD3ACC /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				8F32ADAC2866BB230029BD5B /* FillerApp.swift */,
-				8F32ADAE2866BB230029BD5B /* ContentView.swift */,
+				8F44340F2868B23900AD3ACC /* Views */,
 				8F4434042868AFE100AD3ACC /* Models */,
-				8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */,
 				8F32ADB02866BB270029BD5B /* Assets.xcassets */,
 				8F32ADB22866BB270029BD5B /* Preview Content */,
 			);
@@ -166,6 +171,18 @@
 				8F4434052868B00100AD3ACC /* Tile.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8F44340F2868B23900AD3ACC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8F32ADAE2866BB230029BD5B /* ContentView.swift */,
+				8F4434142868B2B800AD3ACC /* TurnView.swift */,
+				8F4434122868B27D00AD3ACC /* ColorPickerView.swift */,
+				8F4434102868B24F00AD3ACC /* BoardView.swift */,
+				8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +322,9 @@
 				8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */,
 				8F44340A2868B07800AD3ACC /* Player.swift in Sources */,
 				8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */,
+				8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */,
+				8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */,
+				8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */,
 				8F4434082868B04300AD3ACC /* Coordinate.swift in Sources */,
 				8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */,
 			);

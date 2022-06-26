@@ -1,6 +1,6 @@
 import Foundation
 
-enum Tile: CaseIterable, Equatable, Identifiable {
+enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
     case red
     case yellow
     case green
