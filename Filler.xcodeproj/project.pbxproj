@@ -15,8 +15,13 @@
 		8F32ADC82866BB270029BD5B /* FillerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADC72866BB270029BD5B /* FillerUITests.swift */; };
 		8F32ADCA2866BB270029BD5B /* FillerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADC92866BB270029BD5B /* FillerUITestsLaunchTests.swift */; };
 		8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */; };
-		8F32ADD9286746310029BD5B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADD8286746310029BD5B /* Models.swift */; };
+		8F32ADD9286746310029BD5B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADD8286746310029BD5B /* Game.swift */; };
 		8F4434032868AE6C00AD3ACC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F4434022868AE6C00AD3ACC /* GameKit.framework */; };
+		8F4434062868B00100AD3ACC /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434052868B00100AD3ACC /* Tile.swift */; };
+		8F4434082868B04300AD3ACC /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434072868B04300AD3ACC /* Coordinate.swift */; };
+		8F44340A2868B07800AD3ACC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434092868B07800AD3ACC /* Player.swift */; };
+		8F44340C2868B08B00AD3ACC /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340B2868B08B00AD3ACC /* Direction.swift */; };
+		8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340D2868B0BE00AD3ACC /* Board.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +53,13 @@
 		8F32ADC72866BB270029BD5B /* FillerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerUITests.swift; sourceTree = "<group>"; };
 		8F32ADC92866BB270029BD5B /* FillerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryReaders.swift; sourceTree = "<group>"; };
-		8F32ADD8286746310029BD5B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		8F32ADD8286746310029BD5B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		8F4434022868AE6C00AD3ACC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		8F4434052868B00100AD3ACC /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		8F4434072868B04300AD3ACC /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		8F4434092868B07800AD3ACC /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		8F44340B2868B08B00AD3ACC /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		8F44340D2868B0BE00AD3ACC /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +158,12 @@
 		8F4434042868AFE100AD3ACC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8F32ADD8286746310029BD5B /* Models.swift */,
+				8F32ADD8286746310029BD5B /* Game.swift */,
+				8F44340D2868B0BE00AD3ACC /* Board.swift */,
+				8F44340B2868B08B00AD3ACC /* Direction.swift */,
+				8F4434092868B07800AD3ACC /* Player.swift */,
+				8F4434072868B04300AD3ACC /* Coordinate.swift */,
+				8F4434052868B00100AD3ACC /* Tile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,10 +298,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F32ADD9286746310029BD5B /* Models.swift in Sources */,
+				8F32ADD9286746310029BD5B /* Game.swift in Sources */,
 				8F32ADAF2866BB230029BD5B /* ContentView.swift in Sources */,
+				8F4434062868B00100AD3ACC /* Tile.swift in Sources */,
+				8F44340C2868B08B00AD3ACC /* Direction.swift in Sources */,
 				8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */,
+				8F44340A2868B07800AD3ACC /* Player.swift in Sources */,
 				8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */,
+				8F4434082868B04300AD3ACC /* Coordinate.swift in Sources */,
+				8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
