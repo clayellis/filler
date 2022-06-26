@@ -66,6 +66,9 @@ struct BoardView_Previews: PreviewProvider {
         BoardView(spacing: spacing, board: .preview)
             .previewLayout(.sizeThatFits)
 
+        BoardView(spacing: spacing, board: .preview.inverted)
+            .previewLayout(.sizeThatFits)
+
         BoardView(spacing: spacing, board: Board(unsafeWidth: 4, height: 6, tiles: [
             .red, .orange, .yellow, .green,
             .green, .red, .orange, .yellow,

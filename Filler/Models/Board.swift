@@ -34,6 +34,10 @@ struct Board: Codable {
         self.tiles = tiles
     }
 
+    var inverted: Board {
+        Board(unsafeWidth: width, height: height, tiles: tiles.reversed())
+    }
+
     subscript(row row: Int, col col: Int) -> Tile {
         get {
             tiles[row * width + col]
