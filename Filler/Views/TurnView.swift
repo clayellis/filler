@@ -1,7 +1,8 @@
+import FillerKit
 import SwiftUI
 
 struct TurnView: View {
-    @ObservedObject var game: Game
+    @ObservedObject var game: ClientGame
 
     private struct CapsuleID: Hashable {}
     @Namespace private var capsule: Namespace.ID
@@ -37,7 +38,7 @@ struct TurnView: View {
 
 struct TurnView_Previews: PreviewProvider {
     static var previews: some View {
-        TurnView(game: Game(board: .preview))
+        TurnView(game: ClientGame(game: .init(board: .preview)))
             .previewLayout(.sizeThatFits)
     }
 }

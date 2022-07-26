@@ -1,6 +1,6 @@
 import Foundation
 
-enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
+public enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
     case red
     case orange
     case yellow
@@ -8,12 +8,12 @@ enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
     case blue
     case purple
 
-    var id: Self { self }
+    public var id: Self { self }
 }
 
 #if DEBUG
 extension Tile: CustomDebugStringConvertible {
-    var debugDescription: String {
+    public var debugDescription: String {
         switch self {
         case .red:
             return "🟥"
@@ -30,7 +30,7 @@ extension Tile: CustomDebugStringConvertible {
         }
     }
 
-    var swiftDescription: String {
+    public var swiftDescription: String {
         switch self {
         case .red:
             return ".red"

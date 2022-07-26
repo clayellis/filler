@@ -1,11 +1,11 @@
-enum Direction: CaseIterable {
+public enum Direction: CaseIterable {
     case up, down, left, right
 }
 
 extension Direction {
-    struct DirectionApplicationError: Error {}
+    public struct DirectionApplicationError: Error {}
 
-    func apply(toRow row: inout Int, col: inout Int, on board: Board) throws {
+    public func apply(toRow row: inout Int, col: inout Int, on board: Board) throws {
         switch self {
         case .up:
             guard row > 0 else {
@@ -37,14 +37,14 @@ extension Direction {
         }
     }
 
-    func apply(to coordinate: inout TileCoordinate, on board: Board) throws {
+    public func apply(to coordinate: inout TileCoordinate, on board: Board) throws {
         var row = coordinate.row
         var col = coordinate.col
         try apply(toRow: &row, col: &col, on: board)
         coordinate = TileCoordinate(row: row, col: col)
     }
 
-    func applying(to coordinate: TileCoordinate, on board: Board) throws -> TileCoordinate {
+    public func applying(to coordinate: TileCoordinate, on board: Board) throws -> TileCoordinate {
         var row = coordinate.row
         var col = coordinate.col
         try apply(toRow: &row, col: &col, on: board)

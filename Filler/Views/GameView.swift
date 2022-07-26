@@ -1,7 +1,8 @@
+import FillerKit
 import SwiftUI
 
-struct ContentView: View {
-    @ObservedObject var game: Game
+struct GameView: View {
+    @ObservedObject var game: ClientGame
     // TODO: Let user choose the size of the board when starting a new game
 
     var body: some View {
@@ -46,6 +47,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(game: Game(board: .preview, state: .playing(turn: .playerOne)))
+        GameView(game: ClientGame(game: .init(board: .preview), state: .playing(turn: .playerOne)))
     }
 }

@@ -4,12 +4,12 @@ import Foundation
 // The opposing player should always appear in the top right.
 // That means that the board will have to be inverted for one of the players.
 
-struct Board: Codable {
-    let width: Int
-    let height: Int
-    var tiles: [Tile]
+public struct Board: Codable {
+    public let width: Int
+    public let height: Int
+    public var tiles: [Tile]
 
-    init(width: Int = 5, height: Int = 5) {
+    public init(width: Int = 5, height: Int = 5) {
         var tiles = [Tile]()
         for _ in 0 ..< width * height {
             tiles.append(Tile.allCases.randomElement()!)
@@ -27,18 +27,18 @@ struct Board: Codable {
         }
     }
 
-    init(unsafeWidth width: Int, height: Int, tiles: [Tile]) {
+    public init(unsafeWidth width: Int, height: Int, tiles: [Tile]) {
         precondition(tiles.count == width * height, "Invalid width, height, tiles combination.")
         self.width = width
         self.height = height
         self.tiles = tiles
     }
 
-    var inverted: Board {
+    public var inverted: Board {
         Board(unsafeWidth: width, height: height, tiles: tiles.reversed())
     }
 
-    subscript(row row: Int, col col: Int) -> Tile {
+    public subscript(row row: Int, col col: Int) -> Tile {
         get {
             tiles[row * width + col]
         }
@@ -48,11 +48,11 @@ struct Board: Codable {
         }
     }
 
-    func isPlayerTile(_ tile: Tile) -> Bool {
+    public func isPlayerTile(_ tile: Tile) -> Bool {
         tile == self.startingTile(for: .playerOne) || tile == self.startingTile(for: .playerTwo)
     }
 
-    func startingTileCoordinates(for player: Player) -> TileCoordinate {
+    public func startingTileCoordinates(for player: Player) -> TileCoordinate {
         switch player {
         case .playerOne:
             return TileCoordinate(row: height - 1, col: 0)
@@ -61,22 +61,22 @@ struct Board: Codable {
         }
     }
 
-    func startingTile(for player: Player) -> Tile {
+    public func startingTile(for player: Player) -> Tile {
         let tile = startingTileCoordinates(for: player)
         return self[row: tile.row, col: tile.col]
     }
 
-    mutating func capture(_ tile: Tile, for player: Player) {
+    public mutating func capture(_ tile: Tile, for player: Player) {
         self.setTiles(tiles(belongingToPlayer: player), to: tile)
     }
 
-    mutating func setTiles(_ tileCoordinates: Set<TileCoordinate>, to newTile: Tile) {
+    public mutating func setTiles(_ tileCoordinates: Set<TileCoordinate>, to newTile: Tile) {
         for coordinate in tileCoordinates {
             setTile(coordinate, to: newTile)
         }
     }
 
-    mutating func setTile(_ tileCoordinate: TileCoordinate, to newTile: Tile) {
+    public mutating func setTile(_ tileCoordinate: TileCoordinate, to newTile: Tile) {
         self[row: tileCoordinate.row, col: tileCoordinate.col] = newTile
     }
 
@@ -84,7 +84,7 @@ struct Board: Codable {
         self[row: row, col: col] == startingTile(for: player)
     }
 
-    func tiles(belongingToPlayer player: Player) -> Set<TileCoordinate> {
+    public func tiles(belongingToPlayer player: Player) -> Set<TileCoordinate> {
         let start = startingTileCoordinates(for: player)
         return tilesConnected(to: start, tile: startingTile(for: player))
     }
@@ -124,7 +124,7 @@ struct Board: Codable {
 
 #if DEBUG
 extension Board: CustomDebugStringConvertible {
-    var debugDescription: String {
+    public var debugDescription: String {
         var description = ""
         for (tile, index) in zip(tiles, tiles.indices) {
             description += tile.debugDescription
@@ -135,7 +135,7 @@ extension Board: CustomDebugStringConvertible {
         return description
     }
 
-    var swiftDescription: String {
+    public var swiftDescription: String {
         let tilesSD = tiles
             .map(\.swiftDescription)
             .joined(separator: ", ")
@@ -145,8 +145,7 @@ extension Board: CustomDebugStringConvertible {
         """
     }
 
-
-    func printDebugDescription() {
+    public func printDebugDescription() {
         print(debugDescription)
         print(swiftDescription)
         do {
@@ -156,7 +155,7 @@ extension Board: CustomDebugStringConvertible {
         }
     }
 
-    static let preview = Board(unsafeWidth: 6, height: 6, tiles: [
+    public static let preview = Board(unsafeWidth: 6, height: 6, tiles: [
         .red, .orange, .yellow, .green, .blue, .purple,
         .purple, .red, .orange, .yellow, .green, .blue,
         .blue, .purple, .red, .orange, .yellow, .green,
@@ -164,5 +163,11 @@ extension Board: CustomDebugStringConvertible {
         .yellow, .green, .blue, .purple, .red, .orange,
         .orange, .yellow, .green, .blue, .purple, .red,
     ])
+}
+
+extension Data {
+    var utf8String: String {
+        String(data: self, encoding: .utf8) ?? "error"
+    }
 }
 #endif

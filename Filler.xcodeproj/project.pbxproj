@@ -8,23 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADAC2866BB230029BD5B /* FillerApp.swift */; };
-		8F32ADAF2866BB230029BD5B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADAE2866BB230029BD5B /* ContentView.swift */; };
+		8F32ADAF2866BB230029BD5B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADAE2866BB230029BD5B /* GameView.swift */; };
 		8F32ADB12866BB270029BD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F32ADB02866BB270029BD5B /* Assets.xcassets */; };
 		8F32ADB42866BB270029BD5B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F32ADB32866BB270029BD5B /* Preview Assets.xcassets */; };
 		8F32ADBE2866BB270029BD5B /* FillerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADBD2866BB270029BD5B /* FillerTests.swift */; };
 		8F32ADC82866BB270029BD5B /* FillerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADC72866BB270029BD5B /* FillerUITests.swift */; };
 		8F32ADCA2866BB270029BD5B /* FillerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADC92866BB270029BD5B /* FillerUITestsLaunchTests.swift */; };
 		8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */; };
-		8F32ADD9286746310029BD5B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADD8286746310029BD5B /* Game.swift */; };
 		8F4434032868AE6C00AD3ACC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F4434022868AE6C00AD3ACC /* GameKit.framework */; };
-		8F4434062868B00100AD3ACC /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434052868B00100AD3ACC /* Tile.swift */; };
-		8F4434082868B04300AD3ACC /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434072868B04300AD3ACC /* Coordinate.swift */; };
-		8F44340A2868B07800AD3ACC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434092868B07800AD3ACC /* Player.swift */; };
-		8F44340C2868B08B00AD3ACC /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340B2868B08B00AD3ACC /* Direction.swift */; };
-		8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44340D2868B0BE00AD3ACC /* Board.swift */; };
 		8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434102868B24F00AD3ACC /* BoardView.swift */; };
 		8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434122868B27D00AD3ACC /* ColorPickerView.swift */; };
 		8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434142868B2B800AD3ACC /* TurnView.swift */; };
+		8F7ACB62288F53ED00279B33 /* FillerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7ACB61288F53ED00279B33 /* FillerKit */; };
+		8F7ACB66288F546B00279B33 /* ClientGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7ACB65288F546B00279B33 /* ClientGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +43,7 @@
 /* Begin PBXFileReference section */
 		8F32ADA92866BB230029BD5B /* Filler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F32ADAC2866BB230029BD5B /* FillerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerApp.swift; sourceTree = "<group>"; };
-		8F32ADAE2866BB230029BD5B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8F32ADAE2866BB230029BD5B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		8F32ADB02866BB270029BD5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F32ADB32866BB270029BD5B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8F32ADB92866BB270029BD5B /* FillerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FillerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,16 +52,12 @@
 		8F32ADC72866BB270029BD5B /* FillerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerUITests.swift; sourceTree = "<group>"; };
 		8F32ADC92866BB270029BD5B /* FillerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryReaders.swift; sourceTree = "<group>"; };
-		8F32ADD8286746310029BD5B /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		8F4434022868AE6C00AD3ACC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		8F4434052868B00100AD3ACC /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
-		8F4434072868B04300AD3ACC /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
-		8F4434092868B07800AD3ACC /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		8F44340B2868B08B00AD3ACC /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
-		8F44340D2868B0BE00AD3ACC /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		8F4434102868B24F00AD3ACC /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		8F4434122868B27D00AD3ACC /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		8F4434142868B2B800AD3ACC /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
+		8F7ACB5E288F52C200279B33 /* FillerKit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FillerKit; sourceTree = SOURCE_ROOT; };
+		8F7ACB65288F546B00279B33 /* ClientGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F4434032868AE6C00AD3ACC /* GameKit.framework in Frameworks */,
+				8F7ACB62288F53ED00279B33 /* FillerKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +90,7 @@
 		8F32ADA02866BB230029BD5B = {
 			isa = PBXGroup;
 			children = (
+				8F7ACB5E288F52C200279B33 /* FillerKit */,
 				8F32ADAB2866BB230029BD5B /* Filler */,
 				8F32ADBC2866BB270029BD5B /* FillerTests */,
 				8F32ADC62866BB270029BD5B /* FillerUITests */,
@@ -163,12 +157,7 @@
 		8F4434042868AFE100AD3ACC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8F44340D2868B0BE00AD3ACC /* Board.swift */,
-				8F4434072868B04300AD3ACC /* Coordinate.swift */,
-				8F44340B2868B08B00AD3ACC /* Direction.swift */,
-				8F32ADD8286746310029BD5B /* Game.swift */,
-				8F4434092868B07800AD3ACC /* Player.swift */,
-				8F4434052868B00100AD3ACC /* Tile.swift */,
+				8F7ACB65288F546B00279B33 /* ClientGame.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,7 +165,7 @@
 		8F44340F2868B23900AD3ACC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8F32ADAE2866BB230029BD5B /* ContentView.swift */,
+				8F32ADAE2866BB230029BD5B /* GameView.swift */,
 				8F4434142868B2B800AD3ACC /* TurnView.swift */,
 				8F4434122868B27D00AD3ACC /* ColorPickerView.swift */,
 				8F4434102868B24F00AD3ACC /* BoardView.swift */,
@@ -201,6 +190,9 @@
 			dependencies = (
 			);
 			name = Filler;
+			packageProductDependencies = (
+				8F7ACB61288F53ED00279B33 /* FillerKit */,
+			);
 			productName = Filler;
 			productReference = 8F32ADA92866BB230029BD5B /* Filler.app */;
 			productType = "com.apple.product-type.application";
@@ -315,18 +307,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F32ADD9286746310029BD5B /* Game.swift in Sources */,
-				8F32ADAF2866BB230029BD5B /* ContentView.swift in Sources */,
-				8F4434062868B00100AD3ACC /* Tile.swift in Sources */,
-				8F44340C2868B08B00AD3ACC /* Direction.swift in Sources */,
+				8F32ADAF2866BB230029BD5B /* GameView.swift in Sources */,
 				8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */,
-				8F44340A2868B07800AD3ACC /* Player.swift in Sources */,
+				8F7ACB66288F546B00279B33 /* ClientGame.swift in Sources */,
 				8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */,
 				8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */,
 				8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */,
 				8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */,
-				8F4434082868B04300AD3ACC /* Coordinate.swift in Sources */,
-				8F44340E2868B0BE00AD3ACC /* Board.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +640,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F7ACB61288F53ED00279B33 /* FillerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FillerKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F32ADA12866BB230029BD5B /* Project object */;
 }

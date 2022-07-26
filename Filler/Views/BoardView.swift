@@ -1,3 +1,4 @@
+import FillerKit
 import SwiftUI
 
 struct BoardView: View {
@@ -31,12 +32,6 @@ struct BoardView: View {
         } else {
             return (containerSize.width - spacing * CGFloat(board.width - 1)) / CGFloat(board.width)
         }
-    }
-}
-
-extension Data {
-    var utf8String: String {
-        String(data: self, encoding: .utf8) ?? "error"
     }
 }
 
