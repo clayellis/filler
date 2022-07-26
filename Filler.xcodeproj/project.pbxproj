@@ -21,6 +21,7 @@
 		8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4434142868B2B800AD3ACC /* TurnView.swift */; };
 		8F7ACB62288F53ED00279B33 /* FillerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7ACB61288F53ED00279B33 /* FillerKit */; };
 		8F7ACB66288F546B00279B33 /* ClientGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7ACB65288F546B00279B33 /* ClientGame.swift */; };
+		8F7ACB682890683F00279B33 /* DimensionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7ACB672890683F00279B33 /* DimensionPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		8F4434142868B2B800AD3ACC /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
 		8F7ACB5E288F52C200279B33 /* FillerKit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FillerKit; sourceTree = SOURCE_ROOT; };
 		8F7ACB65288F546B00279B33 /* ClientGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientGame.swift; sourceTree = "<group>"; };
+		8F7ACB672890683F00279B33 /* DimensionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				8F4434142868B2B800AD3ACC /* TurnView.swift */,
 				8F4434122868B27D00AD3ACC /* ColorPickerView.swift */,
 				8F4434102868B24F00AD3ACC /* BoardView.swift */,
+				8F7ACB672890683F00279B33 /* DimensionPicker.swift */,
 				8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */,
 			);
 			path = Views;
@@ -311,6 +314,7 @@
 				8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */,
 				8F7ACB66288F546B00279B33 /* ClientGame.swift in Sources */,
 				8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */,
+				8F7ACB682890683F00279B33 /* DimensionPicker.swift in Sources */,
 				8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */,
 				8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */,
 				8F4434152868B2B800AD3ACC /* TurnView.swift in Sources */,

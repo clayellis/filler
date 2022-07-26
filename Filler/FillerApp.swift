@@ -8,25 +8,25 @@ struct FillerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            GameView(game: ClientGame(game: .init(board: .init(width: 9, height: 9))))
-                .overlay {
-                    if let vc = vc {
-                        HostedController(viewController: vc)
-                    }
-                }
-                .onAppear {
-                    GKLocalPlayer.local.authenticateHandler = { viewController, error in
-                        if let error = error {
-                            print(error)
-                        }
-
-                        if let viewController = viewController {
-                            self.vc = viewController
-                        }
-
-                        check()
-                    }
-                }
+            GameView(game: ClientGame(game: .init(board: .init(width: 10, height: 10))))
+//                .overlay {
+//                    if let vc = vc {
+//                        HostedController(viewController: vc)
+//                    }
+//                }
+//                .onAppear {
+//                    GKLocalPlayer.local.authenticateHandler = { viewController, error in
+//                        if let error = error {
+//                            print(error)
+//                        }
+//
+//                        if let viewController = viewController {
+//                            self.vc = viewController
+//                        }
+//
+//                        check()
+//                    }
+//                }
         }
     }
 

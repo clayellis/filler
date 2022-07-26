@@ -22,6 +22,14 @@ struct BoardView: View {
         }
     }
 
+    var aspectRatio: CGFloat {
+        if board.width > board.height {
+            return CGFloat(board.width) / CGFloat(board.height)
+        } else {
+            return CGFloat(board.height) / CGFloat(board.width)
+        }
+    }
+
     func tileLength(width: CGFloat) -> CGFloat {
         return (width - spacing * CGFloat(board.width - 1)) / CGFloat(board.width)
     }

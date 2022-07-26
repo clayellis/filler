@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Game {
-    public private(set) var board: Board
+    public var board: Board
     private(set) var scores: [Player: Int] = [:]
     public private(set) var turn: Player
 

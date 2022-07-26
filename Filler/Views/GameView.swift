@@ -19,6 +19,15 @@ struct GameView: View {
             }
 
             switch game.state {
+            case .pickDimensions:
+                VStack {
+                    Spacer()
+
+                    DimensionPicker(
+                        width: $game.dimensions.width,
+                        height: $game.dimensions.height
+                    )
+                }
             case .playing, .finished:
                 TurnView(game: game)
             case .notPlaying:
@@ -28,6 +37,15 @@ struct GameView: View {
             Spacer()
 
             switch game.state {
+            case .pickDimensions:
+                Button {
+                    game.confirmDimensions()
+                } label: {
+                    Text("Start")
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+
             case .notPlaying, .finished:
                 Button {
                     game.newGame()
@@ -38,7 +56,13 @@ struct GameView: View {
                 .controlSize(.large)
 
             case .playing:
-                EmptyView()
+                Button {
+                    game.newGame()
+                } label: {
+                    Text("Start Over")
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
             }
         }
         .padding()
@@ -47,6 +71,6 @@ struct GameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(game: ClientGame(game: .init(board: .preview), state: .playing(turn: .playerOne)))
+        GameView(game: ClientGame(game: .init(board: .preview), state: .notPlaying))
     }
 }
