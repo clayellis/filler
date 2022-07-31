@@ -3,13 +3,24 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var game: ClientGame
-    // TODO: Let user choose the size of the board when starting a new game
 
     var body: some View {
         VStack {
-            // TODO: Draw a border around the active player's tiles
+            switch game.state {
+            case .playing, .finished:
+                TurnView(game: game)
+            default:
+                EmptyView()
+            }
 
             BoardView(board: game.board)
+                .overlay {
+                    BoardOverlay(
+                        game: game,
+                        borderColor: .color(.black),
+                        borderStyle: .dashed
+                    )
+                }
 
             if case .playing = game.state {
                 ColorPickerView(board: game.board) { tile in
@@ -28,9 +39,8 @@ struct GameView: View {
                         height: $game.dimensions.height
                     )
                 }
-            case .playing, .finished:
-                TurnView(game: game)
-            case .notPlaying:
+
+            default:
                 EmptyView()
             }
 
@@ -71,6 +81,6 @@ struct GameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(game: ClientGame(game: .init(board: .preview), state: .notPlaying))
+        GameView(game: ClientGame(board: .bordered, state: .notPlaying))
     }
 }

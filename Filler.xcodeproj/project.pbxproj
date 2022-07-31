@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F1615ED2891A53800B0E94D /* BoardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1615EC2891A53800B0E94D /* BoardOverlay.swift */; };
 		8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADAC2866BB230029BD5B /* FillerApp.swift */; };
 		8F32ADAF2866BB230029BD5B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F32ADAE2866BB230029BD5B /* GameView.swift */; };
 		8F32ADB12866BB270029BD5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F32ADB02866BB270029BD5B /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F1615EC2891A53800B0E94D /* BoardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardOverlay.swift; sourceTree = "<group>"; };
 		8F32ADA92866BB230029BD5B /* Filler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F32ADAC2866BB230029BD5B /* FillerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerApp.swift; sourceTree = "<group>"; };
 		8F32ADAE2866BB230029BD5B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		8F4434102868B24F00AD3ACC /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		8F4434122868B27D00AD3ACC /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		8F4434142868B2B800AD3ACC /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
+		8F6A3A9728930C7900AEC7C7 /* filler */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = filler; sourceTree = "<group>"; };
 		8F7ACB5E288F52C200279B33 /* FillerKit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FillerKit; sourceTree = SOURCE_ROOT; };
 		8F7ACB65288F546B00279B33 /* ClientGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientGame.swift; sourceTree = "<group>"; };
 		8F7ACB672890683F00279B33 /* DimensionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionPicker.swift; sourceTree = "<group>"; };
@@ -92,6 +95,7 @@
 		8F32ADA02866BB230029BD5B = {
 			isa = PBXGroup;
 			children = (
+				8F6A3A9628930C7900AEC7C7 /* server */,
 				8F7ACB5E288F52C200279B33 /* FillerKit */,
 				8F32ADAB2866BB230029BD5B /* Filler */,
 				8F32ADBC2866BB270029BD5B /* FillerTests */,
@@ -171,10 +175,19 @@
 				8F4434142868B2B800AD3ACC /* TurnView.swift */,
 				8F4434122868B27D00AD3ACC /* ColorPickerView.swift */,
 				8F4434102868B24F00AD3ACC /* BoardView.swift */,
+				8F1615EC2891A53800B0E94D /* BoardOverlay.swift */,
 				8F7ACB672890683F00279B33 /* DimensionPicker.swift */,
 				8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8F6A3A9628930C7900AEC7C7 /* server */ = {
+			isa = PBXGroup;
+			children = (
+				8F6A3A9728930C7900AEC7C7 /* filler */,
+			);
+			path = server;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +327,7 @@
 				8F32ADD72866EA6D0029BD5B /* GeometryReaders.swift in Sources */,
 				8F7ACB66288F546B00279B33 /* ClientGame.swift in Sources */,
 				8F32ADAD2866BB230029BD5B /* FillerApp.swift in Sources */,
+				8F1615ED2891A53800B0E94D /* BoardOverlay.swift in Sources */,
 				8F7ACB682890683F00279B33 /* DimensionPicker.swift in Sources */,
 				8F4434132868B27D00AD3ACC /* ColorPickerView.swift in Sources */,
 				8F4434112868B24F00AD3ACC /* BoardView.swift in Sources */,

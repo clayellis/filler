@@ -8,7 +8,7 @@ struct ColorPickerView: View {
     var body: some View {
         HStack {
             ForEach(Tile.allCases) { tile in
-                let isPlayerTile = board.isPlayerTile(tile)
+                let isPlayerTile = board.isStartingTile(tile)
 
                 Button {
                     onPick(tile)

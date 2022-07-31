@@ -38,7 +38,7 @@ struct TurnView: View {
 
 struct TurnView_Previews: PreviewProvider {
     static var previews: some View {
-        TurnView(game: ClientGame(game: .init(board: .preview)))
+        TurnView(game: ClientGame(board: .preview))
             .previewLayout(.sizeThatFits)
     }
 }

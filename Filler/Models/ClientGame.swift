@@ -6,41 +6,29 @@ class ClientGame: ObservableObject {
     enum GameState {
         case notPlaying
         case pickDimensions
-        case playing(turn: Player)
+        case playing
         case finished(winner: Player)
     }
 
-    @Published var game: Game
+    @Published var board: Board
     @Published var state: GameState = .notPlaying
     @Published var dimensions = (width: 10, height: 10) {
         didSet {
-            game.board = .init(width: dimensions.width, height: dimensions.height)
+            board = .init(width: dimensions.width, height: dimensions.height)
         }
     }
 
-    var board: Board { game.board }
+    init(board: Board = .init(), state: GameState = .notPlaying) {
+        self.board = board
+        self.state = state
+    }
 
     var winner: Player? {
-        switch state {
-        case .finished(let winner):
-            return winner
-        default:
-            return nil
-        }
+        board.winner
     }
 
-    var turn: Player? {
-        switch state {
-        case .playing(let turn):
-            return turn
-        default:
-            return nil
-        }
-    }
-
-    init(game: Game = .init(), state: GameState = .notPlaying) {
-        self.game = game
-        self.state = state
+    var turn: Player {
+        board.turn
     }
 
     func newGame() {
@@ -48,26 +36,26 @@ class ClientGame: ObservableObject {
     }
 
     func confirmDimensions() {
-        game = .init(board: .init(width: dimensions.width, height: dimensions.height), turn: .playerOne)
-        state = .playing(turn: .playerOne)
+        board = .init(width: dimensions.width, height: dimensions.height)
+        state = .playing
     }
 
     func playerPicked(_ tile: Tile) {
         withAnimation {
-            game.playerPicked(tile)
+            board.capture(tile, for: board.turn)
             updateState()
         }
     }
 
     func score(for player: Player) -> Int {
-        game.getScore(for: player)
+        board.scores[player, default: 0]
     }
 
     private func updateState() {
-        if let winner = game.getWinner() {
+        if let winner = board.winner {
             state = .finished(winner: winner)
         } else {
-            state = .playing(turn: game.turn)
+            board.toggleTurn()
         }
     }
 }

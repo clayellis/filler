@@ -17,29 +17,11 @@ struct BoardView: View {
             }
         }
         .aspectRatio(CGFloat(board.width) / CGFloat(board.height), contentMode: .fit)
+        #if DEBUG
         .onTapGesture {
             board.printDebugDescription()
         }
-    }
-
-    var aspectRatio: CGFloat {
-        if board.width > board.height {
-            return CGFloat(board.width) / CGFloat(board.height)
-        } else {
-            return CGFloat(board.height) / CGFloat(board.width)
-        }
-    }
-
-    func tileLength(width: CGFloat) -> CGFloat {
-        return (width - spacing * CGFloat(board.width - 1)) / CGFloat(board.width)
-    }
-
-    func tileLength(containerSize: CGSize) -> CGFloat {
-        if containerSize.width > containerSize.height {
-            return (containerSize.height - spacing * CGFloat(board.height - 1)) / CGFloat(board.height)
-        } else {
-            return (containerSize.width - spacing * CGFloat(board.width - 1)) / CGFloat(board.width)
-        }
+        #endif
     }
 }
 
@@ -61,7 +43,6 @@ extension Tile {
         }
     }
 }
-
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         let spacing: CGFloat = 0

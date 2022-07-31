@@ -11,6 +11,15 @@ public enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
     public var id: Self { self }
 }
 
+extension Tile {
+    public static let 🟥: Self = .red
+    public static let 🟧: Self = .orange
+    public static let 🟨: Self = .yellow
+    public static let 🟩: Self = .green
+    public static let 🟦: Self = .blue
+    public static let 🟪: Self = .purple
+}
+
 #if DEBUG
 extension Tile: CustomDebugStringConvertible {
     public var debugDescription: String {

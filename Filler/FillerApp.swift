@@ -8,7 +8,7 @@ struct FillerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            GameView(game: ClientGame(game: .init(board: .init(width: 10, height: 10))))
+            GameView(game: ClientGame(board: .init(width: 10, height: 10)))
 //                .overlay {
 //                    if let vc = vc {
 //                        HostedController(viewController: vc)

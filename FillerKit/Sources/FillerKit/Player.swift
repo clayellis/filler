@@ -1,4 +1,4 @@
-public enum Player: CaseIterable, Equatable, Identifiable {
+public enum Player: String, CaseIterable, Codable, Equatable, Identifiable {
     case playerOne
     case playerTwo
 

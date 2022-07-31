@@ -7,13 +7,16 @@ import Foundation
 public struct Board: Codable {
     public let width: Int
     public let height: Int
-    public var tiles: [Tile]
+    public private(set) var tiles: [Tile]
+    public var turn: Player = .playerOne
 
     public init(width: Int = 5, height: Int = 5) {
         var tiles = [Tile]()
+        tiles.reserveCapacity(width * height)
         for _ in 0 ..< width * height {
             tiles.append(Tile.allCases.randomElement()!)
         }
+
         self.tiles = tiles
         self.width = width
         self.height = height
@@ -34,6 +37,8 @@ public struct Board: Codable {
         self.tiles = tiles
     }
 
+    // MARK: - Utilities
+
     public var inverted: Board {
         Board(unsafeWidth: width, height: height, tiles: tiles.reversed())
     }
@@ -48,7 +53,55 @@ public struct Board: Codable {
         }
     }
 
-    public func isPlayerTile(_ tile: Tile) -> Bool {
+    public subscript(_ coord: TileCoordinate) -> Tile {
+        get {
+            self[row: coord.row, col: coord.col]
+        }
+
+        set {
+            self[row: coord.row, col: coord.col] = newValue
+        }
+    }
+
+    // MARK: - Mutating Functions
+
+    public mutating func capture(_ tile: Tile, for player: Player) {
+        self.setTiles(tiles(belongingToPlayer: player), to: tile)
+    }
+
+    public mutating func setTiles(_ tileCoordinates: Set<TileCoordinate>, to newTile: Tile) {
+        for coordinate in tileCoordinates {
+            setTile(coordinate, to: newTile)
+        }
+    }
+
+    public mutating func setTile(_ tileCoordinate: TileCoordinate, to newTile: Tile) {
+        self[row: tileCoordinate.row, col: tileCoordinate.col] = newTile
+    }
+
+    public mutating func toggleTurn() {
+        turn = turn == .playerOne ? .playerTwo : .playerOne
+    }
+
+    // MARK: - Stats
+
+    public var scores: [Player: Int] {
+        Dictionary.init(uniqueKeysWithValues: Player.allCases.map {
+            ($0, tiles(belongingToPlayer: $0).count)
+        })
+    }
+
+    public var winner: Player? {
+        let scores = self.scores
+
+        guard scores.values.reduce(0, +) == width * height else {
+            return nil
+        }
+
+        return scores.max(by: { $0.value < $1.value })?.key
+    }
+
+    public func isStartingTile(_ tile: Tile) -> Bool {
         tile == self.startingTile(for: .playerOne) || tile == self.startingTile(for: .playerTwo)
     }
 
@@ -66,40 +119,25 @@ public struct Board: Codable {
         return self[row: tile.row, col: tile.col]
     }
 
-    public mutating func capture(_ tile: Tile, for player: Player) {
-        self.setTiles(tiles(belongingToPlayer: player), to: tile)
-    }
-
-    public mutating func setTiles(_ tileCoordinates: Set<TileCoordinate>, to newTile: Tile) {
-        for coordinate in tileCoordinates {
-            setTile(coordinate, to: newTile)
-        }
-    }
-
-    public mutating func setTile(_ tileCoordinate: TileCoordinate, to newTile: Tile) {
-        self[row: tileCoordinate.row, col: tileCoordinate.col] = newTile
-    }
-
     private func tile(row: Int, col: Int, belongsToPlayer player: Player) -> Bool {
         self[row: row, col: col] == startingTile(for: player)
     }
 
     public func tiles(belongingToPlayer player: Player) -> Set<TileCoordinate> {
         let start = startingTileCoordinates(for: player)
-        return tilesConnected(to: start, tile: startingTile(for: player))
+        return tilesConnected(to: start)
     }
 
-    private func tilesConnected(to start: TileCoordinate, tile searchTile: Tile) -> Set<TileCoordinate> {
+    private func tilesConnected(to start: TileCoordinate) -> Set<TileCoordinate> {
         var results: Set<TileCoordinate> = []
         var seen: Set<TileCoordinate> = []
         var stack = [start]
+        let searchTile = self[row: start.row, col: start.col]
 
         while let current = stack.popLast() {
-            if seen.contains(current) {
+            guard seen.insert(current).inserted else {
                 continue
             }
-
-            seen.insert(current)
 
             let tile = self[row: current.row, col: current.col]
 
@@ -118,6 +156,24 @@ public struct Board: Codable {
             }
         }
 
+        return results
+    }
+
+    public func tileEdges(belongingToPlayer player: Player) -> Set<TileEdge> {
+        var results = Set<TileEdge>()
+        let playerTiles = tiles(belongingToPlayer: player)
+        for tile in playerTiles {
+            for direction in Direction.allCases {
+                do {
+                    let test = try direction.applying(to: tile, on: self)
+                    if self[test] != self[tile] {
+                        results.insert(TileEdge(tile: tile, direction: direction))
+                    }
+                } catch {
+                    results.insert(TileEdge(tile: tile, direction: direction))
+                }
+            }
+        }
         return results
     }
 }
@@ -156,12 +212,21 @@ extension Board: CustomDebugStringConvertible {
     }
 
     public static let preview = Board(unsafeWidth: 6, height: 6, tiles: [
-        .red, .orange, .yellow, .green, .blue, .purple,
-        .purple, .red, .orange, .yellow, .green, .blue,
-        .blue, .purple, .red, .orange, .yellow, .green,
-        .green, .blue, .purple, .red, .orange, .yellow,
-        .yellow, .green, .blue, .purple, .red, .orange,
-        .orange, .yellow, .green, .blue, .purple, .red,
+        .🟥, .🟧, .🟨, .🟩, .🟦, .🟪,
+        .🟪, .🟥, .🟧, .🟨, .🟩, .🟦,
+        .🟦, .🟪, .🟥, .🟧, .🟨, .🟩,
+        .🟩, .🟦, .🟪, .🟥, .🟧, .🟨,
+        .🟨, .🟩, .🟦, .🟪, .🟥, .🟧,
+        .🟧, .🟨, .🟩, .🟦, .🟪, .🟥,
+    ])
+
+    public static let bordered = Board(unsafeWidth: 6, height: 6, tiles: [
+        .🟩, .🟧, .🟩, .🟩, .🟩, .🟩,
+        .🟧, .🟧, .🟧, .🟩, .🟩, .🟩,
+        .🟧, .🟩, .🟧, .🟧, .🟧, .🟩,
+        .🟩, .🟩, .🟧, .🟩, .🟧, .🟩,
+        .🟧, .🟧, .🟧, .🟧, .🟧, .🟧,
+        .🟧, .🟧, .🟩, .🟩, .🟩, .🟩,
     ])
 }
 

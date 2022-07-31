@@ -51,3 +51,51 @@ extension Direction {
         return TileCoordinate(row: row, col: col)
     }
 }
+
+extension Direction {
+    public func apply(toX x: inout Int, y: inout Int, on board: Board) throws {
+        switch self {
+        case .up:
+            guard y > 0 else {
+                throw DirectionApplicationError()
+            }
+
+            y -= 1
+
+        case .down:
+            guard y < board.height else {
+                throw DirectionApplicationError()
+            }
+
+            y += 1
+
+        case .left:
+            guard x > 0 else {
+                throw DirectionApplicationError()
+            }
+
+            x -= 1
+
+        case .right:
+            guard x < board.width else {
+                throw DirectionApplicationError()
+            }
+
+            x += 1
+        }
+    }
+
+    public func apply(to coordinate: inout TraceCoordinate, on board: Board) throws {
+        var x = coordinate.x
+        var y = coordinate.y
+        try apply(toX: &x, y: &y, on: board)
+        coordinate = TraceCoordinate(x: x, y: y)
+    }
+
+    public func applying(to coordinate: TraceCoordinate, on board: Board) throws -> TraceCoordinate {
+        var x = coordinate.x
+        var y = coordinate.y
+        try apply(toX: &x, y: &y, on: board)
+        return TraceCoordinate(x: x, y: y)
+    }
+}
