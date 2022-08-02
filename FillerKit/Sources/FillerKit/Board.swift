@@ -8,6 +8,8 @@ public struct Board: Codable {
     public let width: Int
     public let height: Int
     public private(set) var tiles: [Tile]
+
+    // TODO: Get rid of this property on Board. The server and the client should each have their own concept of a "game".
     public var turn: Player = .playerOne
 
     public init(width: Int = 5, height: Int = 5) {

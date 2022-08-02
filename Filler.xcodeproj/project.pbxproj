@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6FFC50842897128C00158977 /* Server */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Server; sourceTree = "<group>"; };
 		8F1615EC2891A53800B0E94D /* BoardOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardOverlay.swift; sourceTree = "<group>"; };
 		8F32ADA92866BB230029BD5B /* Filler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Filler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F32ADAC2866BB230029BD5B /* FillerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerApp.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		8F4434102868B24F00AD3ACC /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		8F4434122868B27D00AD3ACC /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		8F4434142868B2B800AD3ACC /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
-		8F6A3A9728930C7900AEC7C7 /* filler */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = filler; sourceTree = "<group>"; };
 		8F7ACB5E288F52C200279B33 /* FillerKit */ = {isa = PBXFileReference; lastKnownFileType = text; path = FillerKit; sourceTree = SOURCE_ROOT; };
 		8F7ACB65288F546B00279B33 /* ClientGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientGame.swift; sourceTree = "<group>"; };
 		8F7ACB672890683F00279B33 /* DimensionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionPicker.swift; sourceTree = "<group>"; };
@@ -95,11 +95,9 @@
 		8F32ADA02866BB230029BD5B = {
 			isa = PBXGroup;
 			children = (
-				8F6A3A9628930C7900AEC7C7 /* server */,
 				8F7ACB5E288F52C200279B33 /* FillerKit */,
-				8F32ADAB2866BB230029BD5B /* Filler */,
-				8F32ADBC2866BB270029BD5B /* FillerTests */,
-				8F32ADC62866BB270029BD5B /* FillerUITests */,
+				6FFC50842897128C00158977 /* Server */,
+				8F32ADAB2866BB230029BD5B /* App */,
 				8F32ADAA2866BB230029BD5B /* Products */,
 				8F4434012868AE6C00AD3ACC /* Frameworks */,
 			);
@@ -115,16 +113,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F32ADAB2866BB230029BD5B /* Filler */ = {
+		8F32ADAB2866BB230029BD5B /* App */ = {
 			isa = PBXGroup;
 			children = (
 				8F32ADAC2866BB230029BD5B /* FillerApp.swift */,
 				8F4434042868AFE100AD3ACC /* Models */,
 				8F44340F2868B23900AD3ACC /* Views */,
 				8F32ADB02866BB270029BD5B /* Assets.xcassets */,
+				8F32ADC62866BB270029BD5B /* FillerUITests */,
+				8F32ADBC2866BB270029BD5B /* FillerTests */,
 				8F32ADB22866BB270029BD5B /* Preview Content */,
 			);
-			path = Filler;
+			path = App;
 			sourceTree = "<group>";
 		};
 		8F32ADB22866BB270029BD5B /* Preview Content */ = {
@@ -180,14 +180,6 @@
 				8F32ADD62866EA6D0029BD5B /* GeometryReaders.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		8F6A3A9628930C7900AEC7C7 /* server */ = {
-			isa = PBXGroup;
-			children = (
-				8F6A3A9728930C7900AEC7C7 /* filler */,
-			);
-			path = server;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,7 +481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Filler/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 9KP7LFTE8H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -519,7 +511,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Filler/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 9KP7LFTE8H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
