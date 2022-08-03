@@ -57,9 +57,6 @@ struct RemoteGameView: View {
                         UIPasteboard.general.string = game.remoteGame.playerTwo?.uuidString
                     }
                 }
-//                .onTapGesture {
-//
-//                }
                 #endif
             }
             .padding()
@@ -73,6 +70,9 @@ struct RemoteGameView: View {
                             .foregroundColor(.white)
                     }
             }
+        }
+        .onDisappear {
+            // TODO: Disconnect from socket
         }
     }
 }

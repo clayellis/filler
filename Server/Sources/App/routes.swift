@@ -111,6 +111,8 @@ func routes(_ app: Application) throws {
             try? await ws.close(code: .unacceptableData)
         }
 
+        // TODO: We need to somehow retrieve the web socket for the other client (if one exists) and send the message to it
+
         ws.onBinary { ws, buffer in
             do {
                 let turn = try JSONDecoder().decode(MakeTurnRequest.self, from: buffer)
@@ -165,6 +167,7 @@ extension Request {
 extension WebSocket {
     func send<Body: Encodable>(body: Body) async throws {
         let data = try JSONEncoder().encode(body)
-        try await send(data.base64Bytes())
+        let stringData = String(data: data, encoding: .utf8)!
+        try await send(stringData)
     }
 }

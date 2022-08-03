@@ -63,11 +63,20 @@ class RemoteGame: ObservableObject {
         gameCode = remoteGame.code
         board = remoteGame.board(for: localPlayer)
         update(with: remoteGame)
-        pollGame()
+        connectToGameSocket()
+//        pollGame()
     }
 
     deinit {
         pollGameTask?.cancel()
+    }
+
+    private func connectToGameSocket() {
+        Task {
+            for await game in FillerAPI.connectToGameSocket(code: gameCode) {
+                update(with: game)
+            }
+        }
     }
 
     private func pollGame() {
@@ -98,6 +107,22 @@ class RemoteGame: ObservableObject {
     }
 
     func playerPicked(_ tile: Tile) {
+        socketPlayerPicked(tile)
+//        restPlayerPicked(tile)
+    }
+
+    private func socketPlayerPicked(_ tile: Tile) {
+        Task { @MainActor [gameCode, weak self] in
+            do {
+                try await FillerAPI.makeTurnOnSocket(gameCode: gameCode, selection: tile)
+                self?.error = nil
+            } catch {
+                self?.error = error.localizedDescription
+            }
+        }
+    }
+
+    private func restPlayerPicked(_ tile: Tile) {
         Task { @MainActor in
             do {
                 guard !isBusy else {

@@ -68,6 +68,58 @@ struct FillerAPI {
 
         return try await post(games(code: gameCode)/"turn", body: Body(playerID: playerID, selection: selection))
     }
+
+    private static var gameSocket: URLSessionWebSocketTask?
+
+    static func connectToGameSocket(code: String) -> AsyncStream<RemoteGameDetail> {
+        let socket = URLSession.shared.webSocketTask(with: URL(staticString: "ws://localhost:8080")/"games"/code/"socket")
+        gameSocket = socket
+        socket.resume()
+        return AsyncStream(unfolding: {
+            while true {
+                do {
+                    let message = try await socket.receive()
+                    log("Recieved socket message")
+                    switch message {
+                    case .data(let data):
+                        log("Received socket data")
+                        log(data.prettyJSON)
+
+                    case .string(let string):
+                        let data = string.data(using: .utf8)!
+                        log("Received socket string")
+                        log(data.prettyJSON)
+                        let game = try JSONDecoder().decode(RemoteGameDetail.self, from: data)
+                        return game
+
+                    @unknown default:
+                        fatalError("Unknown web socket task message: \(message)")
+                    }
+                } catch {
+                    log(error.localizedDescription)
+                    log("Cancelled socket task")
+                    socket.cancel()
+                }
+            }
+        })
+    }
+
+    static func makeTurnOnSocket(gameCode: String, selection: Tile) async throws {
+        struct Body: Encodable {
+            let playerID: UUID
+            let selection: Tile
+        }
+
+        guard let socket = gameSocket else {
+            return
+        }
+
+        let body = try JSONEncoder().encode(Body(playerID: playerID, selection: selection))
+        log("Making turn on socket")
+        log(body.prettyJSON)
+        try await socket.send(.data(body))
+        log("Made turn")
+    }
 }
 
 extension URL {
