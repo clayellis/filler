@@ -1,6 +1,7 @@
 import FillerKit
 import Fluent
 import Vapor
+import Foundation
 
 func routes(_ app: Application) throws {
     // New game
@@ -96,8 +97,37 @@ func routes(_ app: Application) throws {
     }
 
     app.post("games", ":code", "turn") { req async throws -> ServerGame.Response.Full in
-        let game = try await req.game()
         let turn = try req.content.decode(MakeTurnRequest.self)
+        return try await applyTurn(turn, on: req)
+    }
+
+    app.webSocket("games", ":code", "socket") { req, ws in
+        do {
+            // Send the current state of the game when a new connection is opened
+            let game = try await req.game()
+            try await ws.send(body: game.response.full)
+        } catch {
+            // Close the connection if the current state can't be sent
+            try? await ws.close(code: .unacceptableData)
+        }
+
+        ws.onBinary { ws, buffer in
+            do {
+                let turn = try JSONDecoder().decode(MakeTurnRequest.self, from: buffer)
+                let result = try await applyTurn(turn, on: req)
+                try await ws.send(body: result)
+
+                if result.board.winner != nil {
+                    try await ws.close()
+                }
+            } catch {
+                try? await ws.send(error.localizedDescription)
+            }
+        }
+    }
+
+    func applyTurn(_ turn: MakeTurnRequest, on req: Request) async throws -> ServerGame.Response.Full {
+        let game = try await req.game()
 
         guard game.playerTwo != nil else {
             throw MakeTurnError.noPlayerTwo
@@ -129,5 +159,12 @@ extension Request {
         }
 
         return game
+    }
+}
+
+extension WebSocket {
+    func send<Body: Encodable>(body: Body) async throws {
+        let data = try JSONEncoder().encode(body)
+        try await send(data.base64Bytes())
     }
 }

@@ -9,9 +9,6 @@ public struct Board: Codable {
     public let height: Int
     public private(set) var tiles: [Tile]
 
-    // TODO: Get rid of this property on Board. The server and the client should each have their own concept of a "game".
-    public var turn: Player = .playerOne
-
     public init(width: Int = 5, height: Int = 5) {
         var tiles = [Tile]()
         tiles.reserveCapacity(width * height)
@@ -79,10 +76,6 @@ public struct Board: Codable {
 
     public mutating func setTile(_ tileCoordinate: TileCoordinate, to newTile: Tile) {
         self[row: tileCoordinate.row, col: tileCoordinate.col] = newTile
-    }
-
-    public mutating func toggleTurn() {
-        turn = turn == .playerOne ? .playerTwo : .playerOne
     }
 
     // MARK: - Stats

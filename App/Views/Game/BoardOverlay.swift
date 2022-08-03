@@ -2,7 +2,9 @@ import FillerKit
 import SwiftUI
 
 struct BoardOverlay: View {
-    @ObservedObject var game: ClientGame
+    var turn: Player?
+    var winner: Player?
+    var board: Board
     var borderColor: BorderColor = .color(.black)
     var borderStyle: BorderStyle = .solid
 
@@ -19,10 +21,10 @@ struct BoardOverlay: View {
     var body: some View {
         GeometryReader { geometry in
             let frame = geometry.frame(in: .local)
-            if let turn = game.board.winner ?? game.turn {
+            if let turn = winner ?? turn {
                 Path { path in
-                    for edge in game.board.tileEdges(belongingToPlayer: turn) {
-                        path.addPath(Path(frame.path(at: edge, boardWidth: game.board.width, boardHeight: game.board.height)))
+                    for edge in board.tileEdges(belongingToPlayer: turn) {
+                        path.addPath(Path(frame.path(at: edge, boardWidth: board.width, boardHeight: board.height)))
                     }
                 }
                 .stroke(strokeColor(turn: turn), style: strokeStyle)
@@ -33,7 +35,7 @@ struct BoardOverlay: View {
     func strokeColor(turn: Player) -> some ShapeStyle {
         switch borderColor {
         case .currentPlayer:
-            return game.board.startingTile(for: turn).color
+            return board.startingTile(for: turn).color
         case .color(let color):
             return color
         }
@@ -105,22 +107,13 @@ struct BoardOverlay_Previews: PreviewProvider {
 
         BoardView(board: board)
             .overlay {
-                BoardOverlay(game: .init(
-                    board: board,
-                    state: .playing
-                ))
+                BoardOverlay(turn: .playerOne, board: .preview)
             }
             .padding()
 
         BoardView(board: board)
             .overlay {
-                BoardOverlay(
-                    game: .init(
-                        board: board,
-                        state: .playing
-                    ),
-                    borderStyle: .dashed
-                )
+                BoardOverlay(turn: .playerOne, board: .preview, borderStyle: .dashed)
             }
             .padding()
     }

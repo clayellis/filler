@@ -2,7 +2,9 @@ import FillerKit
 import SwiftUI
 
 struct TurnView: View {
-    @ObservedObject var game: ClientGame
+    let turn: Player?
+    let winner: Player?
+    let scores: [Player: Int]
 
     private struct CapsuleID: Hashable {}
     @Namespace private var capsule: Namespace.ID
@@ -12,7 +14,7 @@ struct TurnView: View {
             ForEach(Player.allCases) { player in
                 VStack {
                     HStack {
-                        if player == game.winner {
+                        if player == winner {
                             Image(systemName: "crown.fill")
                                 .foregroundColor(.yellow)
                         }
@@ -20,10 +22,12 @@ struct TurnView: View {
                         Text("\(player.name):")
                             .font(.body.bold())
 
-                        Text("\(game.score(for: player))")
+                        if let score = scores[player] {
+                            Text("\(score)")
+                        }
                     }
 
-                    if player == game.turn {
+                    if player == turn {
                         Capsule()
                             .frame(width: 150, height: 5)
                             .matchedGeometryEffect(id: CapsuleID(), in: capsule)
@@ -38,7 +42,7 @@ struct TurnView: View {
 
 struct TurnView_Previews: PreviewProvider {
     static var previews: some View {
-        TurnView(game: ClientGame(board: .preview))
+        TurnView(turn: .playerOne, winner: nil, scores: [.playerOne: 1, .playerTwo: 1])
             .previewLayout(.sizeThatFits)
     }
 }

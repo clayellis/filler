@@ -1,14 +1,18 @@
 import FillerKit
 import SwiftUI
 
-struct GameView: View {
-    @ObservedObject var game: ClientGame
+struct LocalGameView: View {
+    @ObservedObject var game: LocalGame
 
     var body: some View {
         VStack {
             switch game.state {
             case .playing, .finished:
-                TurnView(game: game)
+                TurnView(
+                    turn: game.turn,
+                    winner: game.winner,
+                    scores: game.board.scores
+                )
             default:
                 EmptyView()
             }
@@ -16,7 +20,9 @@ struct GameView: View {
             BoardView(board: game.board)
                 .overlay {
                     BoardOverlay(
-                        game: game,
+                        turn: game.turn,
+                        winner: game.winner,
+                        board: game.board,
                         borderColor: .color(.black),
                         borderStyle: .dashed
                     )
@@ -81,6 +87,6 @@ struct GameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(game: ClientGame(board: .bordered, state: .notPlaying))
+        LocalGameView(game: LocalGame(board: .bordered, state: .notPlaying))
     }
 }

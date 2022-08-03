@@ -1,12 +1,12 @@
 import Foundation
 
 public enum Tile: Int, CaseIterable, Codable, Equatable, Identifiable {
-    case red
-    case orange
-    case yellow
-    case green
-    case blue
-    case purple
+    case red = 0
+    case orange = 1
+    case yellow = 2
+    case green = 3
+    case blue = 4
+    case purple = 5
 
     public var id: Self { self }
 }

@@ -1,55 +1,30 @@
 import GameKit
 import SwiftUI
 
+@MainActor
 @main
 struct FillerApp: App {
-    @State private var vc: UIViewController?
-    @State private var isAuthenticated = false
+    @ObservedObject var matchmaking = MatchmakingModel()
 
-    var body: some Scene {
-        WindowGroup {
-            GameView(game: ClientGame(board: .init(width: 10, height: 10)))
-//                .overlay {
-//                    if let vc = vc {
-//                        HostedController(viewController: vc)
-//                    }
-//                }
-//                .onAppear {
-//                    GKLocalPlayer.local.authenticateHandler = { viewController, error in
-//                        if let error = error {
-//                            print(error)
-//                        }
-//
-//                        if let viewController = viewController {
-//                            self.vc = viewController
-//                        }
-//
-//                        check()
-//                    }
-//                }
+    init() {
+        if let playerID = UserDefaults.standard.string(forKey: "playerID") {
+            FillerAPI.playerID = UUID(uuidString: playerID)!
+        } else {
+            let playerID = UUID()
+            FillerAPI.playerID = playerID
+            UserDefaults.standard.set(playerID.uuidString, forKey: "playerID")
         }
     }
 
-    func check() {
-        isAuthenticated = GKLocalPlayer.local.isAuthenticated
+    var body: some Scene {
+        WindowGroup {
+            NavigationView {
+                MatchmakingView(model: matchmaking)
+                    .navigationDestination(when: $matchmaking.currentGame) { game in
+                        try! RemoteGameView(game: RemoteGame(remoteGame: game))
+//                        LocalGameView(game: LocalGame(board: game.board))
+                    }
+            }
+        }
     }
 }
-
-struct HostedController: UIViewControllerRepresentable {
-    let viewController: UIViewController
-
-    func makeUIViewController(context: Context) -> UIViewController {
-        viewController
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-}
-
-//protocol GameKitController: ObservableObject {
-//    func authenticate
-//}
-//
-//class GameKitController: ObservableObject {
-//
-//
-//}
