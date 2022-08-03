@@ -42,12 +42,12 @@ struct FillerAPI {
         try await get(games(code: code))
     }
 
-    static func joinGame(code: String) async throws -> RemoteGameDetail {
-        struct Body: Encodable {
-            let playerID: UUID
-        }
+    private struct JoinGameRequest: Encodable {
+        let playerID: UUID
+    }
 
-        return try await post(games(code: code)/"join", body: Body(playerID: playerID))
+    static func joinGame(code: String) async throws -> RemoteGameDetail {
+        try await post(games(code: code)/"join", body: JoinGameRequest(playerID: playerID))
     }
 
     static func createGame(width: Int, height: Int) async throws -> RemoteGameDetail {
@@ -60,23 +60,24 @@ struct FillerAPI {
         return try await post(games/"new", body: Body(playerID: playerID, width: width, height: height))
     }
 
-    static func makeTurn(gameCode: String, selection: Tile) async throws -> RemoteGameDetail {
-        struct Body: Encodable {
-            let playerID: UUID
-            let selection: Tile
-        }
+    private struct MakeTurnRequest: Encodable {
+        let playerID: UUID
+        let selection: Tile
+    }
 
-        return try await post(games(code: gameCode)/"turn", body: Body(playerID: playerID, selection: selection))
+    static func makeTurn(gameCode: String, selection: Tile) async throws -> RemoteGameDetail {
+        try await post(games(code: gameCode)/"turn", body: MakeTurnRequest(playerID: playerID, selection: selection))
     }
 
     private static var gameSocket: URLSessionWebSocketTask?
 
     static func connectToGameSocket(code: String) -> AsyncStream<RemoteGameDetail> {
         let socket = URLSession.shared.webSocketTask(with: URL(staticString: "ws://localhost:8080")/"games"/code/"socket")
-        gameSocket = socket
         socket.resume()
+        gameSocket = socket
+
         return AsyncStream(unfolding: {
-            while true {
+            while socket.state == .running {
                 do {
                     let message = try await socket.receive()
                     log("Recieved socket message")
@@ -101,24 +102,35 @@ struct FillerAPI {
                     socket.cancel()
                 }
             }
+
+            return nil
         })
     }
 
     static func makeTurnOnSocket(gameCode: String, selection: Tile) async throws {
-        struct Body: Encodable {
-            let playerID: UUID
-            let selection: Tile
-        }
+        try await sendSocketMessage(.turn(.init(playerID: playerID, selection: selection)))
+    }
 
+    static func joinOnSocket(gameCode: String) async throws {
+        try await sendSocketMessage(.join(.init(playerID: playerID)))
+    }
+
+    private enum SocketMessage: Encodable {
+        case join(JoinGameRequest)
+        case turn(MakeTurnRequest)
+    }
+
+    private static func sendSocketMessage(_ message: SocketMessage) async throws {
         guard let socket = gameSocket else {
+            // TODO: Throw error "not connected"
             return
         }
 
-        let body = try JSONEncoder().encode(Body(playerID: playerID, selection: selection))
-        log("Making turn on socket")
+        let body = try JSONEncoder().encode(message)
+        log("Sending socket message")
         log(body.prettyJSON)
         try await socket.send(.data(body))
-        log("Made turn")
+        log("Sent socket message")
     }
 }
 

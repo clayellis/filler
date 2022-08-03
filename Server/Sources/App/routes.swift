@@ -45,13 +45,23 @@ func routes(_ app: Application) throws {
     }
 
     app.post("games", ":code", "join") { req async throws -> ServerGame.Response.Full in
+        let join = try req.content.decode(JoinGameRequest.self)
+        let game = try await applyJoin(join, on: req)
+        do {
+            try await sendGameToConnectedClients(game, on: req)
+        } catch {
+            app.logger.error("Failed to send game to connected clients")
+        }
+        return game
+    }
+
+    func applyJoin(_ join: JoinGameRequest, on req: Request) async throws -> ServerGame.Response.Full {
         let game = try await req.game()
 
         guard game.playerTwo == nil else {
             throw Abort(.conflict)
         }
 
-        let join = try req.content.decode(JoinGameRequest.self)
         game.playerTwo = join.playerID
         try await game.save(on: req.db)
 
@@ -101,30 +111,44 @@ func routes(_ app: Application) throws {
         return try await applyTurn(turn, on: req)
     }
 
+    enum SocketMessage: Content {
+        case join(JoinGameRequest)
+        case turn(MakeTurnRequest)
+    }
+
     app.webSocket("games", ":code", "socket") { req, ws in
         do {
             // Send the current state of the game when a new connection is opened
             let game = try await req.game()
             try await ws.send(body: game.response.full)
+            if game.board.winner != nil {
+                try await ws.close()
+                return
+            }
+
+            let socketStorage = req.application.socketStorage
+            await socketStorage.addSocket(ws, forGameCode: game.code)
+
+            ws.onBinary { ws, buffer in
+                do {
+                    let message = try JSONDecoder().decode(SocketMessage.self, from: buffer)
+                    let game: ServerGame.Response.Full
+                    switch message {
+                    case .join(let join):
+                        game = try await applyJoin(join, on: req)
+                    case .turn(let turn):
+                        game = try await applyTurn(turn, on: req)
+                    }
+
+                    try await sendGameToConnectedClients(game, on: req)
+
+                } catch {
+                    try? await ws.send(error.localizedDescription)
+                }
+            }
         } catch {
             // Close the connection if the current state can't be sent
             try? await ws.close(code: .unacceptableData)
-        }
-
-        // TODO: We need to somehow retrieve the web socket for the other client (if one exists) and send the message to it
-
-        ws.onBinary { ws, buffer in
-            do {
-                let turn = try JSONDecoder().decode(MakeTurnRequest.self, from: buffer)
-                let result = try await applyTurn(turn, on: req)
-                try await ws.send(body: result)
-
-                if result.board.winner != nil {
-                    try await ws.close()
-                }
-            } catch {
-                try? await ws.send(error.localizedDescription)
-            }
         }
     }
 
@@ -149,6 +173,65 @@ func routes(_ app: Application) throws {
         try game.toggleTurn()
         try await game.save(on: req.db)
         return game.response.full
+    }
+
+    func sendGameToConnectedClients(_ game: ServerGame.Response.Full, on req: Request) async throws {
+        let socketStorage = req.application.socketStorage
+
+        for socket in await socketStorage.sockets(forGameCode: game.code) {
+            try await socket.send(body: game)
+
+            if game.board.winner != nil {
+                try await socket.close()
+                await socketStorage.removeSocket(socket, forGameCode: game.code)
+            }
+        }
+    }
+}
+
+actor SocketStorage {
+    /// Stores sockets by game code.
+    private var sockets = [String: [WebSocket]]()
+
+    func addSocket(_ socket: WebSocket, forGameCode gameCode: String) {
+        guard !sockets(forGameCode: gameCode).contains(where: { $0 === socket }) else {
+            return
+        }
+
+        sockets[gameCode, default: []].append(socket)
+
+        // TODO: Remove the socket from storage when it closes
+//        return socket.onClose.always { [weak self] result in
+//            self?.removeSocket(socket, forGameCode: gameCode)
+//        }
+    }
+
+    func removeSocket(_ socket: WebSocket, forGameCode gameCode: String) {
+        sockets[gameCode]?.removeAll(where: { $0 === socket })
+    }
+
+    func sockets(forGameCode gameCode: String) -> [WebSocket] {
+        sockets[gameCode, default: []]
+    }
+}
+
+struct SocketStorageKey: StorageKey {
+    typealias Value = SocketStorage
+}
+
+extension Application {
+    var socketStorage: SocketStorage {
+        get {
+            let socketStorage = self.storage[SocketStorageKey.self] ?? SocketStorage()
+            if self.storage[SocketStorageKey.self] == nil {
+                self.storage[SocketStorageKey.self] = socketStorage
+            }
+            return socketStorage
+        }
+
+        set {
+            self.storage[SocketStorageKey.self] = newValue
+        }
     }
 }
 

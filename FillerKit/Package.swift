@@ -14,10 +14,6 @@ let package = Package(
     targets: [
         .target(
             name: "FillerKit"
-        ),
-        .testTarget(
-            name: "FillerKitTests",
-            dependencies: ["FillerKit"]
-        ),
+        )
     ]
 )
