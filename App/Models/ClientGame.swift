@@ -2,11 +2,11 @@ import FillerKit
 import Foundation
 import SwiftUI
 
-class LocalGame: ObservableObject {
+class ClientGame: ObservableObject {
     enum GameState {
         case notPlaying
         case pickDimensions
-        case playing(turn: Player)
+        case playing
         case finished(winner: Player)
     }
 
@@ -28,16 +28,7 @@ class LocalGame: ObservableObject {
     }
 
     var turn: Player {
-        switch state {
-        case .notPlaying, .pickDimensions:
-            return .playerOne
-
-        case .playing(let turn):
-            return turn
-
-        case .finished(let winner):
-            return winner
-        }
+        board.turn
     }
 
     func newGame() {
@@ -46,16 +37,12 @@ class LocalGame: ObservableObject {
 
     func confirmDimensions() {
         board = .init(width: dimensions.width, height: dimensions.height)
-        state = .playing(turn: .playerOne)
+        state = .playing
     }
 
     func playerPicked(_ tile: Tile) {
-        guard case let .playing(turn) = state else {
-            return
-        }
-
         withAnimation {
-            board.capture(tile, for: turn)
+            board.capture(tile, for: board.turn)
             updateState()
         }
     }
@@ -68,7 +55,7 @@ class LocalGame: ObservableObject {
         if let winner = board.winner {
             state = .finished(winner: winner)
         } else {
-            state = .playing(turn: turn == .playerOne ? .playerTwo : .playerOne)
+            board.toggleTurn()
         }
     }
 }

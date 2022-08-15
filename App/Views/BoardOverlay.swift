@@ -2,9 +2,7 @@ import FillerKit
 import SwiftUI
 
 struct BoardOverlay: View {
-    var turn: Player?
-    var winner: Player?
-    var board: Board
+    @ObservedObject var game: ClientGame
     var borderColor: BorderColor = .color(.black)
     var borderStyle: BorderStyle = .solid
 
@@ -21,10 +19,10 @@ struct BoardOverlay: View {
     var body: some View {
         GeometryReader { geometry in
             let frame = geometry.frame(in: .local)
-            if let turn = winner ?? turn {
+            if let turn = game.board.winner ?? game.turn {
                 Path { path in
-                    for edge in board.tileEdges(belongingToPlayer: turn) {
-                        path.addPath(Path(frame.path(at: edge, boardWidth: board.width, boardHeight: board.height)))
+                    for edge in game.board.tileEdges(belongingToPlayer: turn) {
+                        path.addPath(Path(frame.path(at: edge, boardWidth: game.board.width, boardHeight: game.board.height)))
                     }
                 }
                 .stroke(strokeColor(turn: turn), style: strokeStyle)
@@ -35,7 +33,7 @@ struct BoardOverlay: View {
     func strokeColor(turn: Player) -> some ShapeStyle {
         switch borderColor {
         case .currentPlayer:
-            return board.startingTile(for: turn).color
+            return game.board.startingTile(for: turn).color
         case .color(let color):
             return color
         }
@@ -107,13 +105,22 @@ struct BoardOverlay_Previews: PreviewProvider {
 
         BoardView(board: board)
             .overlay {
-                BoardOverlay(turn: .playerOne, board: .preview)
+                BoardOverlay(game: .init(
+                    board: board,
+                    state: .playing
+                ))
             }
             .padding()
 
         BoardView(board: board)
             .overlay {
-                BoardOverlay(turn: .playerOne, board: .preview, borderStyle: .dashed)
+                BoardOverlay(
+                    game: .init(
+                        board: board,
+                        state: .playing
+                    ),
+                    borderStyle: .dashed
+                )
             }
             .padding()
     }
